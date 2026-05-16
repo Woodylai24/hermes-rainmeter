@@ -1,0 +1,1 @@
+# Dependencies\nnode_modules/\n\n# IDE\n.vscode/\n.idea/\n\n# OS\n.DS_Store\nThumbs.db\n\n# Build\nrainmeter-dll/**/bin/\nrainmeter-dll/**/obj/\n\n# Python\n__pycache__/\n*.pyc\n.venv/\n\n# Env (contains tokens)\n.env
