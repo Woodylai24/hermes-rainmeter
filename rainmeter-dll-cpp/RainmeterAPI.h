@@ -83,7 +83,7 @@ inline void RmExecute(void* rm, LPCWSTR bang) {
 // Call this once in Initialize()
 //
 inline void RmInitializeAPI() {
-	HMODULE hRainmeter = GetModuleHandle(L"Rainmeter.exe");
+	HMODULE hRainmeter = GetModuleHandleW(L"Rainmeter.exe");
 	if (!hRainmeter) return;
 
 	_RmLog         = (FN_RmLog)GetProcAddress(hRainmeter, "RmLog");

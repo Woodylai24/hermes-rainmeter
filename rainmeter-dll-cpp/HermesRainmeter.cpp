@@ -20,6 +20,9 @@
 
 #pragma comment(lib, "winhttp.lib")
 
+// WebSocket close status codes (RFC 6455) — not defined in winhttp.h
+static const USHORT WS_CLOSE_NORMAL = 1000;
+
 // ---------------------------------------------------------------------------
 // UTF-8 <-> Wide string helpers
 // ---------------------------------------------------------------------------
@@ -171,7 +174,7 @@ static WsUrl ParseWsUrl(const std::wstring& url) {
 	size_t colonPos = authority.rfind(L':');
 	if (colonPos != std::wstring::npos) {
 		result.host = authority.substr(0, colonPos);
-		result.port = std::_wtoi(authority.substr(colonPos + 1).c_str());
+		result.port = _wtoi(authority.substr(colonPos + 1).c_str());
 	}
 	else {
 		result.host = authority;
@@ -419,8 +422,8 @@ static bool ConnectWebSocket(Measure* m) {
 
 	// Close previous handles
 	if (m->hWebSocket) {
-		WinHttpWebSocketClose(m->hWebSocket, WINHTTP_WEB_SOCKET_CLOSE_STATUS_NORMAL, nullptr, 0);
-		WinHttpWebSocketShutdown(m->hWebSocket, WINHTTP_WEB_SOCKET_CLOSE_STATUS_NORMAL, nullptr, 0);
+		WinHttpWebSocketClose(m->hWebSocket, WS_CLOSE_NORMAL, nullptr, 0);
+		WinHttpWebSocketShutdown(m->hWebSocket, WS_CLOSE_NORMAL, nullptr, 0);
 		m->hWebSocket = nullptr;
 	}
 
@@ -489,7 +492,7 @@ static bool ConnectWebSocket(Measure* m) {
 	}
 
 	// 7. Complete WebSocket upgrade
-	m->hWebSocket = WinHttpWebSocketCompleteUpgrade(hRequest, nullptr);
+	m->hWebSocket = WinHttpWebSocketCompleteUpgrade(hRequest, 0);
 
 	// The request handle is no longer needed after upgrade
 	WinHttpCloseHandle(hRequest);
@@ -523,7 +526,7 @@ static void BackgroundThread(Measure* m) {
 
 			// Clean up WebSocket handles
 			if (m->hWebSocket) {
-				WinHttpWebSocketClose(m->hWebSocket, WINHTTP_WEB_SOCKET_CLOSE_STATUS_NORMAL, nullptr, 0);
+				WinHttpWebSocketClose(m->hWebSocket, WS_CLOSE_NORMAL, nullptr, 0);
 				WinHttpCloseHandle(m->hWebSocket);
 				m->hWebSocket = nullptr;
 			}
@@ -573,7 +576,7 @@ static void StopConnection(Measure* m) {
 
 	// Close WebSocket to unblock receive loop
 	if (m->hWebSocket) {
-		WinHttpWebSocketShutdown(m->hWebSocket, WINHTTP_WEB_SOCKET_CLOSE_STATUS_NORMAL, nullptr, 0);
+		WinHttpWebSocketShutdown(m->hWebSocket, WS_CLOSE_NORMAL, nullptr, 0);
 	}
 
 	if (m->recvThread && m->recvThread->joinable()) {
