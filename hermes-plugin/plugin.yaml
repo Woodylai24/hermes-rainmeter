@@ -1,0 +1,23 @@
+name: rainmeter-platform
+label: Rainmeter
+kind: platform
+version: 1.0.0
+description: >
+  Rainmeter desktop widget gateway for Hermes Agent.
+  Embeds a WebSocket server that Rainmeter skins connect to,
+  enabling real-time chat and status monitoring from the Windows desktop.
+author: Woody
+requires_env: []
+optional_env:
+  - name: RAINMETER_WS_PORT
+    description: "WebSocket port for Rainmeter plugin (default: 8643)"
+    prompt: "WebSocket port"
+    password: false
+  - name: RAINMETER_AUTH_TOKEN
+    description: "Auth token for Rainmeter connections (optional, for remote access)"
+    prompt: "Auth token (optional)"
+    password: true
+  - name: RAINMETER_HOME_CHANNEL
+    description: "Default channel ID for Rainmeter messages"
+    prompt: "Home channel ID (optional)"
+    password: false
