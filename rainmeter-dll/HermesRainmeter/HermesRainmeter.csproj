@@ -66,7 +66,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="RGiesecke.DllExport">
-      <HintPath>..\packages\RGiesecke.DllExport.1.7.4\lib\net20\RGiesecke.DllExport.dll</HintPath>
+      <HintPath>..\packages\UnmanagedExports.1.2.7\tools\RGiesecke.DllExport.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
@@ -85,13 +85,13 @@
 
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 
-  <!-- DllExport: IL-rewrites the compiled DLL to add unmanaged exports -->
-  <Import Project="..\packages\RGiesecke.DllExport.1.7.4\tools\RGiesecke.DllExport.targets" Condition="Exists('..\packages\RGiesecke.DllExport.1.7.4\tools\RGiesecke.DllExport.targets')" />
+  <!-- DllExport: IL-rewrites the compiled DLL to add unmanaged C exports -->
+  <Import Project="..\packages\UnmanagedExports.1.2.7\tools\RGiesecke.DllExport.targets" Condition="Exists('..\packages\UnmanagedExports.1.2.7\tools\RGiesecke.DllExport.targets')" />
 
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them. For more info, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\RGiesecke.DllExport.1.7.4\tools\RGiesecke.DllExport.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\RGiesecke.DllExport.1.7.4\tools\RGiesecke.DllExport.targets'))" />
+    <Error Condition="!Exists('..\packages\UnmanagedExports.1.2.7\tools\RGiesecke.DllExport.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\UnmanagedExports.1.2.7\tools\RGiesecke.DllExport.targets'))" />
   </Target>
 </Project>
