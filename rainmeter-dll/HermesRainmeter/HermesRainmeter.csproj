@@ -22,28 +22,12 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="DllExport" Version="1.7.4" />
   </ItemGroup>
 
   <ItemGroup>
     <Reference Include="System.Net.WebSockets" />
     <Reference Include="System.Net.WebSockets.Client" />
   </ItemGroup>
-
-  <!--
-    Post-build: Run Rainmeter DllExporter to create unmanaged exports.
-    Requires DllExporter.exe from Rainmeter Plugin SDK in the tools/ directory.
-    Download from: https://github.com/rainmeter/rainmeter-plugin-sdk
-    
-    To build without DllExporter (development only):
-      dotnet build -p:SkipDllExport=true
-  -->
-  <Target Name="DllExport" AfterTargets="Build" Condition="'$(SkipDllExport)' != 'true'">
-    <PropertyGroup>
-      <DllExporterPath>$(MSBuildProjectDirectory)\..\tools\DllExporter.exe</DllExporterPath>
-    </PropertyGroup>
-    <Exec Command="&quot;$(DllExporterPath)&quot; $(Configuration) $(PlatformName) $(OutputPath) $(AssemblyName).dll"
-          Condition="Exists('$(DllExporterPath)')"
-          ConsoleToMSBuild="true" />
-  </Target>
 
 </Project>

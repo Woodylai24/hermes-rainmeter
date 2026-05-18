@@ -89,13 +89,8 @@ namespace Rainmeter
             NativeMethods.RmLog(_rm, (int)type, message);
         }
 
-        // --- DllExport attribute marker ---
-        // Rainmeter's DllExporter.exe looks for this attribute to create unmanaged exports.
-        // It's a dummy attribute — the real work happens in the post-build step.
-        [AttributeUsage(AttributeTargets.Method)]
-        public class DllExportAttribute : Attribute
-        {
-        }
+        // DllExport attribute is provided by the DllExport NuGet package.
+        // See: https://github.com/3F/DllExport
     }
 
     /// <summary>
