@@ -65,8 +65,8 @@
       <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="RGiesecke.DllExport">
-      <HintPath>..\packages\UnmanagedExports.1.2.7\tools\RGiesecke.DllExport.dll</HintPath>
+    <Reference Include="RGiesecke.DllExport.Metadata">
+      <HintPath>..\packages\UnmanagedExports.1.2.7\lib\net\RGiesecke.DllExport.Metadata.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
