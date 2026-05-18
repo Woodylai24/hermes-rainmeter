@@ -23,7 +23,17 @@ from gateway.platforms.base import (
     SendResult,
 )
 
-from ws_server import RainmeterWSServer
+# Import ws_server from the same plugin directory.
+# The Hermes plugin loader imports us via spec_from_file_location,
+# so bare imports don't work — we need a relative or path-based import.
+import importlib.util as _ilu
+import os as _os
+
+_ws_path = _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "ws_server.py")
+_ws_spec = _ilu.spec_from_file_location("hermes_plugins.rainmeter_ws_server", _ws_path)
+_ws_mod = _ilu.module_from_spec(_ws_spec)
+_ws_spec.loader.exec_module(_ws_mod)
+RainmeterWSServer = _ws_mod.RainmeterWSServer
 
 logger = logging.getLogger("hermes.rainmeter")
 
