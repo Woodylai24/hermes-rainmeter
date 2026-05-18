@@ -27,7 +27,7 @@ namespace HermesRainmeter
         public static void Finalize(IntPtr data)
         {
             Measure measure = data;
-            measure.Finalize();
+            measure.Cleanup();
 
             GCHandle.FromIntPtr(data).Free();
         }

@@ -230,7 +230,7 @@ namespace HermesRainmeter
         /// <summary>
         /// Clean up the measure. Called from exported Finalize function.
         /// </summary>
-        public void Finalize()
+        public void Cleanup()
         {
             Disposed = true;
             if (Client != null)
