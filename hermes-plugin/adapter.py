@@ -226,13 +226,13 @@ def check_requirements() -> bool:
         return False
 
 
-def validate_config(config) -> Optional[str]:
-    """Validate Rainmeter platform config. Returns error string or None."""
+def validate_config(config) -> bool:
+    """Validate Rainmeter platform config. Returns True if valid, False otherwise."""
     extra = getattr(config, "extra", {}) or {}
     port = extra.get("ws_port", 8643)
     if not isinstance(port, int) or port < 1 or port > 65535:
-        return f"Invalid ws_port: {port}"
-    return None
+        return False
+    return True
 
 
 def is_connected(config) -> bool:
