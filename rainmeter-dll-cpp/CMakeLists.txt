@@ -13,9 +13,14 @@ target_link_libraries(HermesRainmeter PRIVATE winhttp)
 # Export all symbols (for Rainmeter plugin entry points)
 # On MSVC, we use __declspec(dllexport) in the code instead
 if(MSVC)
-    # Reduce DLL size, enable PDB for debugging
-    target_compile_options(HermesRainmeter PRIVATE /W4 /Zi)
+    # Statically link the C/C++ runtime — no dependency on vcruntime DLLs
+    # This is standard practice for Rainmeter plugins
+    target_compile_options(HermesRainmeter PRIVATE /W4 /Zi /MT)
     target_link_options(HermesRainmeter PRIVATE /DEBUG)
+
+    # Ensure /MT is used for all configs (CMake defaults to /MD)
+    set_property(TARGET HermesRainmeter PROPERTY
+        MSVC_RUNTIME_LIBRARY "MultiThreaded")
 endif()
 
 # Output to bin/ directory
